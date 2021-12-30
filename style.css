@@ -45,7 +45,7 @@ body {
   border: rgb(22, 24, 26) 2px solid;
   display: flex;
   align-items: center;
-  text-align: end;
+  justify-content: end;
   font-size: 13vw;
   font-family: "7segments";
   padding: 1vw;
