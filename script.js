@@ -30,6 +30,5 @@ function operate(operator, a, b) {
       result = divide(a, b);
       break;
   }
-  return result;
+  return result);
 }
-
