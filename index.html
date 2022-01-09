@@ -1,50 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div id="calculator">
-    <div id="brand"></div>
-    <div id="display"></div>
-    <div id="buttons">
-      <div id="first-row" class="row">
-        <button id="AC">AC</button>
-        <button id="invert">+/-</button>
-        <button id="percentaje">%</button>
-        <button id="divide">/</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora 3.0</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="calculator">
+        <div id="display"></div>
+        <button name="clear" class="function">C</button>
+        <button name="pow" class="operator">xⁿ </button>
+        <button name="percent" class="operator">%</button>
+        <button name="multiply" class="operator">x</button>
+        <button class="number">7</button>
+        <button class="number">8</button>
+        <button class="number">9</button>
+        <button name="divide" class="operator">÷</button>
+        <button class="number">4</button>
+        <button class="number">5</button>
+        <button class="number">6</button>
+        <button name="rest" class="operator">-</button>
+        <button class="number">1</button>
+        <button class="number">2</button>
+        <button class="number">3</button>
+        <button name="add" class="operator">+</button>
+        <button name="return" class="function">&larr;</button>
+        <button class="number">0</button>
+        <button class="number">.</button>
+        <button name="equal" id="equal" class="function">=</button>
       </div>
-      <div id="second-row" class="row">
-        <button id="seven">7</button>
-        <button id="eight">8</button>
-        <button id="nine">9</button>
-        <button id="multiply">*</button>
-      </div>
-      <div id="third-row" class="row">
-        <button id="four">4</button>
-        <button id="five">5</button>
-        <button id="six">6</button>
-        <button id="minus">-</button>
-      </div>
-      <div id="fourth-row" class="row">
-        <button id="one">1</button>
-        <button id="two">2</button>
-        <button id="three">3</button>
-        <button id="plus">+</button>
-      </div>
-      <div id="fifth -row" class="row">
-        <button id="cero">0</button>
-        <button id="point">.</button>
-        <button id="equal">=</button>
-      </div>  
     </div>
-    <div id="foot"></div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
+  </body>
 </html>

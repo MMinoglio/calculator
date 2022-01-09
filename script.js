@@ -1,136 +1,118 @@
-function add(a, b) {
-  return a + b;
-}
+const display = () => document.getElementById("display");
+const buttonsNumber = document.querySelectorAll(".number");
+const buttonsOperator = document.querySelectorAll(".operator");
+const buttonsFunction = document.querySelectorAll(".function");
+let displayValue = "";
+prevNumber = "0";
+operator = "add";
 
-function substract(a, b) {
-  return a - b;
-}
+const refreshDisplay = () => (display().textContent = displayValue);
 
-function multiply(a, b) {
-  return a * b;
-}
-
-function divide(a, b) {
-  return a / b;
-}
-
-function operate(operator, a, b) {
-  result = 0;
-  switch (operator) {
-    case "+":
-      result = add(parseFloat(a), parseFloat(b));
-      break;
-    case "-":
-      result = substract(parseFloat(a), parseFloat(b));
-      break;
-    case "*":
-      result = multiply(parseFloat(a), parseFloat(b));
-      break;
-    case "/":
-      result = divide(parseFloat(a), parseFloat(b));
-      break;
+const operate = (firstValue, secondValue, operator) => {
+  if (operator === "add")
+    return (parseFloat(firstValue) + parseFloat(secondValue)).toString();
+  if (operator === "rest")
+    return (parseFloat(firstValue) - parseFloat(secondValue)).toString();
+  if (operator === "multiply")
+    return (parseFloat(firstValue) * parseFloat(secondValue)).toString();
+  if (operator === "divide")
+    return (parseFloat(firstValue) / parseFloat(secondValue)).toString();
+  if (operator === "percent")
+    return (
+      (parseFloat(firstValue) / 100) *
+      parseFloat(secondValue)
+    ).toString();
+  if (operator === "pow") {
+    return Math.pow(parseFloat(firstValue), parseFloat(secondValue)).toString();
   }
-  return result;
-}
+};
 
-function isNumber(button) {
-  return (
-    button == "0" ||
-    button == "1" ||
-    button == "2" ||
-    button == "3" ||
-    button == "4" ||
-    button == "5" ||
-    button == "6" ||
-    button == "7" ||
-    button == "8" ||
-    button == "9" ||
-    button == "."
-  );
-}
-
-function isOperator(button) {
-  return button == "/" || button == "*" || button == "-" || button == "+";
-}
-
-function show(input) {
-  if (input.toString().length < 7) {
-    display().textContent = input.toString();
-  } else display().textContent = input.toString().slice(0, 7);
-}
-
-function processingButton(button) {
-  if (isNumber(button)) {
-    operatorPressed = false;
-    operanding = operanding + button;
-    show(operanding);
-    return;
-  } else if (isOperator(button)) {
-    if (operatorPressed === true) {
-      operator = button;
-      return;
-    }
-    operatorPressed = true;
-    if (!result) {
-      result = operanding;
-      operanding = "";
-      operator = button;
-    } else {
-      result = operate(button, result, operanding);
-      show(result);
-      operanding = "";
-      operator = button;
-    }
-    return;
-  } else
-    switch (button) {
-      case "AC":
-        result = "";
-        show(0);
-        operanding = "";
-        operator = "";
-
-        break;
-
-      case "+/-":
-        operanding = -operanding;
-        show(operanding);
-        operator = "";
-        break;
-
-      case "%":
-        operanding *= 0.01;
-        show(operanding);
-        operator = "";
-        break;
-
-      case "=":
-        if (!operator || !operanding) break;
-        result = operate(operator, result, operanding);
-        operanding = result;
-        show(operanding);
-        result = "";
-        operator = "";
-        break;
-    }
-}
-
-function listenButtons() {
-  const buttons = document.querySelectorAll("button");
-  buttons.forEach((button) => {
+const listenNumber = () => {
+  buttonsNumber.forEach((button) => {
     button.addEventListener("click", (event) => {
-      buttonPressed = event.target.textContent;
-      processingButton(buttonPressed);
+      if (event.target.textContent === "." && displayValue.includes("."))
+        return;
+      numberPressed = event.target.textContent;
+      displayValue += numberPressed;
+      refreshDisplay();
     });
   });
-}
+};
 
-let result = "";
-let operator = "";
-let operanding = "";
-let operatorPressed = false;
-let blankScreen = true;
+const listenOperator = () => {
+  buttonsOperator.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      if (displayValue === "" && event.target.name === "rest") {
+        displayValue = "-";
+        refreshDisplay();
+      } else if (displayValue === "-" && event.target.name === "add") {
+        displayValue = "";
+        refreshDisplay();
+      } else if (displayValue !== "" && displayValue !== "-") {
+        if (operator === "divide" && displayValue === "0") {
+          displayValue = "Error Div 0";
+          refreshDisplay();
+          prevNumber = 0;
+          operator = "add";
+          displayValue = "";
+          return;
+        }
+        prevNumber = round(operate(prevNumber, displayValue, operator));
+        operator = event.target.name;
+        displayValue = prevNumber + event.target.textContent;
+        refreshDisplay();
+        displayValue = "";
+      }
+    });
+  });
+};
 
-const display = () => document.querySelector("#display");
+const listenFunction = () => {
+  buttonsFunction.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      if (event.target.name === "clear") {
+        displayValue = "";
+        prevNumber = "0";
+        operator = "add";
+        refreshDisplay();
+        return;
+      } else if (event.target.name === "equal") {
+        if (!displayValue) {
+          displayValue = prevNumber;
+          prevNumber = 0;
+          operator = "add";
+          refreshDisplay();
+          return;
+        }
+        if (operator === "divide" && displayValue === "0") {
+          displayValue = "Error Div 0";
+          refreshDisplay();
+          prevNumber = 0;
+          operator = "add";
+          displayValue = "";
+          return;
+        }
+        displayValue = round(operate(prevNumber, displayValue, operator));
+        prevNumber = 0;
+        operator = "add";
+        refreshDisplay();
+      } else if (event.target.name === "return") {
+        if (displayValue === "") {
+          displayValue = display().textContent;
+          operator = "add";
+          prevNumber = 0;
+        }
+        displayValue = displayValue.toString().slice(0, -1);
+        refreshDisplay();
+      }
+    });
+  });
+};
 
-listenButtons();
+const round = (num) => {
+  return +(Math.round(num + "e+2") + "e-2");
+};
+
+listenNumber();
+listenOperator();
+listenFunction();
