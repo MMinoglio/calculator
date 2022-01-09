@@ -19,10 +19,10 @@ body {
 }
 
 #calculator {
-  max-height: 95vmax;
-  min-height: 90vmin;
-  max-width: 95vmin;
-  min-width:  95vmin;
+  max-height: 100vmax;
+  min-height: 100vmin;
+  max-width: 100vmin;
+  min-width:  100vmin;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(7, 1fr);
