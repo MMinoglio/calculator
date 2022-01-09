@@ -20,7 +20,8 @@ body {
 
 #calculator {
   height: 100vh;
-  width: 80vmin;
+  width: 95vmin;
+  max-width: 100vh;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(6, 1fr);
