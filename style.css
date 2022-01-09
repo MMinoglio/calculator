@@ -19,12 +19,11 @@ body {
 }
 
 #calculator {
-  height: 95vmin;
-  min-height: 80vh;
-  width: 90vmin;
+  height: 100vh;
+  width: 80vmin;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   padding: 1vmin;
 }
 
@@ -50,7 +49,7 @@ button {
   background-color: black;
   border: none;
   color: orangered;
-  font-size: 5vmin;
+  font-size: 8vmin;
   height: 12vmin;
   width: 12vmin;
   transition-duration: 0.1s;
